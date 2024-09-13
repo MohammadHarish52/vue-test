@@ -1,23 +1,28 @@
 <script>
+// composition api
+import { ref } from "vue";
 export default {
-  data() {
-    return {
-      name: "Tun tun mausi",
-      status: "active",
-      tasks: ["Task one", "Task Two", "Task three"],
-      link: "https://google.com",
-    };
-  },
-  methods: {
-    toggleStatus() {
-      if (this.status === "active") {
-        this.status = "pending";
-      } else if (this.status === "pending") {
-        this.status = "inactive";
+  setup() {
+    const name = ref("Harish");
+    const status = ref("active");
+    const tasks = ["Task one", "Task Two", "Task three"];
+    const link = "https://google.com";
+    const toggleStatus = () => {
+      if (status.value === "active") {
+        status.value = "pending";
+      } else if (status.value === "pending") {
+        status.value = "inactive";
       } else {
-        this.status = "active";
+        status.value = "active";
       }
-    },
+    };
+    return {
+      name,
+      status,
+      tasks,
+      link,
+      toggleStatus,
+    };
   },
 };
 </script>
