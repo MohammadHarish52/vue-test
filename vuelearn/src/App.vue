@@ -5,6 +5,7 @@ export default {
       name: "Tun tun mausi",
       status: "active",
       tasks: ["Task one", "Task Two", "Task three"],
+      link: "https://google.com",
     };
   },
 };
@@ -17,8 +18,8 @@ export default {
   <p v-else>Pending user</p>
 
   <h1>Tasks</h1>
-
   <ul>
     <li v-for="task in tasks" :key="task">{{ task }}</li>
   </ul>
+  <a v-bind:href="link">click me</a>
 </template>
