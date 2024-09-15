@@ -1,13 +1,19 @@
 <script setup>
 import { defineProps, ref, computed } from "vue";
-import JobListing from "./JobListing.vue";
 
 const props = defineProps({
+  id: {
+    type: [String, Number], // Accept both String and Number
+    required: true,
+  },
   title: String,
-  description: String, // Ensure this prop is defined
+  description: String,
   salary: String,
   location: String,
-  company: String,
+  company: {
+    type: [String, Object], // Accept both String and Object
+    required: true,
+  },
   type: {
     type: String,
     default: "Full-Time",
@@ -59,10 +65,10 @@ const truncatedDescription = computed(() => {
           {{ location }}
         </div>
         <div class="text-blue-600 mb-3">
-          {{ company }}
+          {{ typeof company === "object" ? company.name : company }}
         </div>
         <a
-          :href="'/job/' + job.id"
+          :href="'/job/' + id"
           class="h-[36px] bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-center text-sm"
         >
           Read More

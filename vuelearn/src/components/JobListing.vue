@@ -15,10 +15,12 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  job: {
-    type: Object,
-  },
 });
+
+// Add this function to handle company data
+const getCompanyName = (company) => {
+  return typeof company === "object" ? company.name : company;
+};
 </script>
 
 <template>
@@ -27,15 +29,19 @@ defineProps({
       <h2 class="text-3xl font-bold text-purple-500 mb-6 text-center">
         Browse Jobs
       </h2>
+      <p>Debug: {{ jobListings.length }} jobs available</p>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <JobListingCard
-          v-for="job in jobListings.slice(0, limit) || jobListings.length"
+          v-for="job in jobListings.slice(0, limit)"
           :key="job.id"
+          :id="job.id"
           :title="job.title"
           :subtitle="job.subtitle"
           :description="job.description"
           :salary="job.salary"
           :location="job.location"
+          :company="job.company"
+          :type="job.type"
         />
       </div>
     </div>
