@@ -12,10 +12,10 @@ import Card from "./Card.vue";
           btnText="Browse Jobs"
         />
         <Card
-          background="bg-green-100"
+          background="bg-purple-100"
           title="For Employers"
           description="List your job to find the perfect developer for the role"
-          btnColor="bg-green-500"
+          btnColor="bg-purple-500"
         />
       </div>
     </div>
