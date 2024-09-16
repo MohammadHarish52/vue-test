@@ -6,7 +6,7 @@ module.exports = {
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
       },
-      gridTemplateColoums: {
+      gridTemplateColumns: {
         "70/30": "70% 28%",
       },
     },

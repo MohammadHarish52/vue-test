@@ -1,9 +1,10 @@
 <script setup>
 import { defineProps, ref, computed } from "vue";
+import { RouterLink } from "vue-router";
 
 const props = defineProps({
   id: {
-    type: [String, Number], // Accept both String and Number
+    type: Number, // Accept both String and Number
     required: true,
   },
   title: String,
@@ -67,12 +68,12 @@ const truncatedDescription = computed(() => {
         <div class="text-blue-600 mb-3">
           {{ typeof company === "object" ? company.name : company }}
         </div>
-        <a
-          :href="'/job/' + id"
+        <RouterLink
+          :to="{ name: 'job', params: { id: id } }"
           class="h-[36px] bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-center text-sm"
         >
           Read More
-        </a>
+        </RouterLink>
       </div>
     </div>
   </div>
