@@ -10,5 +10,5 @@ import JobListing from "@/components/JobListing.vue";
     description="Find the certified job that fits your skills and needs"
   />
   <HomeCards />
-  <JobListing :showButton="true" />
+  <JobListing :showButton="true" limit="3" />
 </template>

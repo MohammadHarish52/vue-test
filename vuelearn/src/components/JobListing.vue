@@ -1,10 +1,7 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { reactive, defineProps, onMounted } from "vue";
 import JobListingCard from "./JobListingCard.vue";
-import jobsData from "@/jobs.json";
-
-// Create a ref for the job listings
-const jobListings = ref(jobsData);
+import axios from "axios";
 
 defineProps({
   limit: {
@@ -16,10 +13,22 @@ defineProps({
   },
 });
 
+const state = reactive({
+  jobListings: [],
+  isLoading: true,
+});
+
 // Add this function to handle company data
-const getCompanyName = (company) => {
-  return typeof company === "object" ? company.name : company;
-};
+onMounted(async () => {
+  try {
+    const response = await axios.get("http://localhost:8000/jobs");
+    state.jobListings = response.data;
+  } catch (error) {
+    console.log("Error fetching jobs", error);
+  } finally {
+    state.isLoading = "false";
+  }
+});
 </script>
 
 <template>
@@ -28,10 +37,10 @@ const getCompanyName = (company) => {
       <h2 class="text-3xl font-bold text-purple-500 mb-6 text-center">
         Browse Jobs
       </h2>
-      <p>Debug: {{ jobListings.length }} jobs available</p>
+      <p>Debug: {{ state.jobListings.length }} jobs available</p>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <JobListingCard
-          v-for="job in jobListings.slice(0, limit)"
+          v-for="job in state.jobListings.slice(0, limit)"
           :key="job.id"
           :id="job.id"
           :title="job.title"
