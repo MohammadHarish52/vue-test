@@ -1,8 +1,8 @@
 <script setup>
 import { reactive, defineProps, onMounted } from "vue";
 import JobListingCard from "./JobListingCard.vue";
+import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 import axios from "axios";
-
 defineProps({
   limit: {
     type: Number,
@@ -21,12 +21,12 @@ const state = reactive({
 // Add this function to handle company data
 onMounted(async () => {
   try {
-    const response = await axios.get("http://localhost:8000/jobs");
+    const response = await axios.get("/api/jobs");
     state.jobListings = response.data;
   } catch (error) {
     console.log("Error fetching jobs", error);
   } finally {
-    state.isLoading = "false";
+    state.isLoading = false;
   }
 });
 </script>
@@ -37,7 +37,10 @@ onMounted(async () => {
       <h2 class="text-3xl font-bold text-purple-500 mb-6 text-center">
         Browse Jobs
       </h2>
-      <p>Debug: {{ state.jobListings.length }} jobs available</p>
+
+      <div v-if="state.isLoading" class="text-3xl text-gray-500 py-6">
+        <PulseLoader />
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <JobListingCard
           v-for="job in state.jobListings.slice(0, limit)"
